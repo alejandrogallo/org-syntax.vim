@@ -54,7 +54,15 @@ endif
 " Headings: {{{1
 " Load Settings: {{{2
 if !exists('g:org_heading_highlight_colors')
-	let g:org_heading_highlight_colors = ['Title', 'Constant', 'Identifier', 'Statement', 'PreProc', 'Type', 'Special']
+	let g:org_heading_highlight_colors
+                \ = [ 'Title'
+                \   , 'Constant'
+                \   , 'Identifier'
+                \   , 'Statement'
+                \   , 'PreProc'
+                \   , 'Type'
+                \   , 'Special'
+                \   ]
 endif
 
 if !exists('g:org_heading_highlight_levels')
@@ -68,7 +76,12 @@ let s:j = len(g:org_heading_highlight_colors)
 let s:contains = ' contains=org_timestamp,org_timestamp_inactive,org_subtask_percent,org_subtask_number,org_subtask_percent_100,org_subtask_number_all,org_list_checkbox,org_bold,org_italic,org_underline,org_code,org_verbatim'
 
 while s:i <= g:org_heading_highlight_levels
-	exec 'syntax match org_heading' . s:i . ' /^\*\{' . s:i . '\}\s.*/' . s:contains
+	exec 'syntax match org_heading'
+        \ . s:i
+        \ . ' /^\*\{'
+        \ . s:i
+        \ . '\}\s.*/'
+        \ . s:contains
 	exec 'hi def link org_heading' . s:i . ' ' . g:org_heading_highlight_colors[(s:i - 1) % s:j]
 	let s:i += 1
 endwhile
@@ -316,17 +329,34 @@ hi def link org_key_identifier  Comment
 hi def link org_title           Title
 
 " Block Markup: {{{1
-" we consider all BEGIN/END sections as 'verbatim' blocks (inc. 'quote', 'verse', 'center')
+" we consider all BEGIN/END sections as 'verbatim' blocks
+"     (inc. 'quote', 'verse', 'center')
 " except 'example' and 'src' which are treated as 'code' blocks.
 " Note: the non-standard '>' prefix is supported for quotation lines.
 " Note: the '^:.*" rule must be defined before the ':PROPERTIES:' one below.
-" TODO: http://vim.wikia.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
+" TODO:
+" http://vim.wikia.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
 syntax match  org_verbatim /^\s*>.*/
 syntax match  org_code     /^\s*:.*/
 
-syntax region org_verbatim start="^\s*#+BEGIN_.*"      end="^\s*#+END_.*"      keepend contains=org_block_delimiter
-syntax region org_code     start="^\s*#+BEGIN_SRC"     end="^\s*#+END_SRC"     keepend contains=org_block_delimiter
-syntax region org_code     start="^\s*#+BEGIN_EXAMPLE" end="^\s*#+END_EXAMPLE" keepend contains=org_block_delimiter
+syntax region org_verbatim
+            \ start="^\s*#+BEGIN_.*"
+            \ end="^\s*#+END_.*"
+            \ keepend
+            \ contains=org_block_delimiter
+            \ fold
+syntax region org_code
+            \ start="^\s*#+BEGIN_SRC"
+            \ end="^\s*#+END_SRC"
+            \ keepend
+            \ contains=org_block_delimiter
+            \ fold
+syntax region org_code
+            \ start="^\s*#+BEGIN_EXAMPLE"
+            \ end="^\s*#+END_EXAMPLE"
+            \ keepend
+            \ contains=org_block_delimiter
+            \ fold
 
 hi def link org_code     String
 hi def link org_verbatim String
@@ -337,8 +367,14 @@ if (s:conceal_aggressively==1)
 endif
 
 " Properties: {{{1
-syn region Error matchgroup=org_properties_delimiter start=/^\s*:PROPERTIES:\s*$/ end=/^\s*:END:\s*$/ contains=org_property keepend
-syn match org_property /^\s*:[^\t :]\+:\s\+[^\t ]/ contained contains=org_property_value
+syn region Error
+      \ matchgroup=org_properties_delimiter
+      \ start=/^\s*:PROPERTIES:\s*$/
+      \ end=/^\s*:END:\s*$/
+      \ contains=org_property keepend
+      \ fold
+syn match org_property /^\s*:[^\t :]\+:\s\+[^\t ]/ contained
+      \ contains=org_property_value
 syn match org_property_value /:\s\zs.*/ contained
 hi def link org_properties_delimiter PreProc
 hi def link org_property             Statement
