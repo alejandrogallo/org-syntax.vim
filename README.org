@@ -1,0 +1,43 @@
+#+title: Org Syntax for =VIM=
+
+* TODO Description
+
+* TODO Supported constructs
+
+- [ ] Tags
+- [X] Headings
+- [X] Bold, italic, code, underline
+- ...
+
+* Installation
+
+The project is thought to be easily installable
+with no dependencies so that people in any environment
+can get it. The easiest way to install it is
+through this shell script
+
+#+BEGIN_SRC sh
+for folder in ftdetect syntax; do
+  mkdir -p ~/.vim/$folder
+  url="https://raw.githubusercontent.com/alejandrogallo/org-syntax.vim/main/$folder/org.vim"
+  wget $url -O ~/.vim/$folder/org.vim
+done
+#+END_SRC
+
+or if you are using a package manager for vim then simply
+you would write something like in your =~/.vimrc=
+
+#+BEGIN_SRC vim
+Plug 'alejandrogallo/org-syntax.vim'
+#+END_SRC
+
+* TODO Acknowledgements
+
+The initial code has been taken from the
+[[https://github.com/jceb/vim-orgmode][=vim-orgmode=]]
+project and has been adapted with permission of the author.
+
+* Other org related projects for vim
+
+- https://github.com/jceb/vim-orgmode
+- https://github.com/axvr/org.vim

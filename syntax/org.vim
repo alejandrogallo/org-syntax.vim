@@ -400,6 +400,7 @@ hi def link org_subtask_number_all Identifier
 " https://github.com/vim-scripts/SyntaxRange
 
 " BEGIN_SRC
+" TODO: ensure that it also works for lowercase
 if exists('g:loaded_SyntaxRange')
   call SyntaxRange#Include('#+BEGIN_SRC vim', '#+END_SRC', 'vim', 'comment')
   call SyntaxRange#Include('#+BEGIN_SRC python', '#+END_SRC', 'python', 'comment')
@@ -414,6 +415,7 @@ if exists('g:loaded_SyntaxRange')
   " call SyntaxRange#Include('#+BEGIN_SRC lua', '#+END_SRC', 'lua', 'comment')
   call SyntaxRange#Include('#+BEGIN_SRC emacs-lisp', '#+END_SRC', 'lisp', 'comment')
   call SyntaxRange#Include('#+BEGIN_SRC lisp', '#+END_SRC', 'lisp', 'comment')
+  call SyntaxRange#Include('#+BEGIN_SRC sh', '#+END_SRC', 'sh', 'comment')
 
   " LaTeX
   call SyntaxRange#Include('\\begin[.*]{.*}', '\\end{.*}', 'tex')
